@@ -22,7 +22,14 @@ class GithubService extends Controller
             'per_page' => '100'
         ]);
         $json = json_decode($response,true);
-        $repos = $json['items'];
-        return $response['items'];
+        $repos = collect($json['items']);
+        $languagesHaveRepos = $repos->groupBy('language')->map(function ($value) {
+            return[ 'No. of repos' => $value->count(), 'repos' => $value->map(function ($value) {
+                    $newValue = collect($value)->only(['name', 'url', 'description']);
+                    return $newValue;
+                })
+            ];
+        });
+        return $languagesHaveRepos;
     }
 }
