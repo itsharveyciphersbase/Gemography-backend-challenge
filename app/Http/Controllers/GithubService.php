@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class GithubService extends Controller
 {
@@ -15,10 +16,12 @@ class GithubService extends Controller
      */
     public function __invoke(Request $request)
     {
+        $date = Carbon::now()->subMonth()->toDateString();
+        // dd($date)
         $response = Http::get('https://api.github.com/search/repositories', [
             'sort' => 'stars',
             'order' => 'desc',
-            'q' => 'created:>2021-03-25',
+            'q' => 'created:>' . $date,
             'per_page' => '100'
         ]);
         $json = json_decode($response,true);
