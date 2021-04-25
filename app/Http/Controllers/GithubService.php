@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class GithubService extends Controller
 {
@@ -14,6 +15,14 @@ class GithubService extends Controller
      */
     public function __invoke(Request $request)
     {
-        return "HelloWorld";
+        $response = Http::get('https://api.github.com/search/repositories', [
+            'sort' => 'stars',
+            'order' => 'desc',
+            'q' => 'created:>2021-03-25',
+            'per_page' => '100'
+        ]);
+        $json = json_decode($response,true);
+        $repos = $json['items'];
+        return $response['items'];
     }
 }
