@@ -47,3 +47,10 @@ If you want to learn more about the Github API, you can click on the following [
 If you have an existing Github repo you can share with us, please reply to our email and share with us the link to your Github repo. Keep in mind that we'll evaluate that repo the same way we review other coding challenge. 
 
 Please make sure you read [how we evaluate your repo](https://www.notion.so/hiddenpole/Read-how-we-review-your-code-413052895a0d4720895c2c433630c8f9).
+
+##  Actions to run the project
+you just have to have laravel installed on your machine
+
+php artisan serve is enough
+
+GET : http://localhost:8000/api/githubtrendingrepos shows everything
